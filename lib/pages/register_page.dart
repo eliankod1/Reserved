@@ -30,7 +30,25 @@ class _RegisterPageState extends State<RegisterPage> {
         'email': _emailController.text,
       });
 
-      Navigator.of(context).pop();
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Registration Successful'),
+            content: Text('Please Log in'),
+            actions: <Widget>[
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context)
+                      .pop(); // Pop both the dialog and the registration page
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(e.message ?? 'Unknown error occurred'),

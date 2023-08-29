@@ -89,7 +89,6 @@ class _AddAppointmentState extends State<AddAppointment> {
           break;
         }
       }
-      // Check if the start or end of the new appointment falls within a booked time
       if ((startTime.isAfter(bookedTime) &&
               startTime.isBefore(endOfBookedTime)) ||
           (endTime.isAfter(bookedTime) && endTime.isBefore(endOfBookedTime)) ||
@@ -104,12 +103,11 @@ class _AddAppointmentState extends State<AddAppointment> {
   }
 
   String getFormattedDateTime(DateTime dateTime) {
-    var dateFormatter = DateFormat(
-        'MMMM d, y'); // Full month name, day with ordinal suffix and year
-    var timeFormatter = DateFormat('H:mm'); // 24-hour format
+    var dateFormatter = DateFormat('MMMM d, y');
+    var timeFormatter = DateFormat('H:mm');
     String formattedDate = dateFormatter.format(dateTime);
     String formattedTime = timeFormatter.format(dateTime);
-    return '$formattedDate at $formattedTime'; // e.g. "August 14, 2023 at 19:30"
+    return '$formattedDate at $formattedTime';
   }
 
   void addAppointment(
@@ -269,11 +267,9 @@ class _AddAppointmentState extends State<AddAppointment> {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: getDaysInMonth(firstDateOfMonth).map((date) {
-                  // Extracting the day of the week as an abbreviation.
                   String dayOfWeek =
                       DateFormat('EEE').format(date).toUpperCase();
 
-                  // Extracting the day of the month.
                   String dayOfMonth = DateFormat('d').format(date);
 
                   return Padding(

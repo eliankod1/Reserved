@@ -92,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   height: 24.0,
                 ),
                 const Text(
-                  "Reserved",
+                  "My appointments",
                   style: TextStyle(
                       color: Colors.amberAccent,
                       fontSize: 24.0,
@@ -118,13 +118,11 @@ class _MyHomePageState extends State<MyHomePage> {
                           (data['date'] as Timestamp).toDate();
 
                       if (appointmentDate.isBefore(now)) {
-                        // Delete appointments that have passed
                         FirebaseFirestore.instance
                             .collection('appointments')
                             .doc(document.id)
                             .delete();
-                        return const SizedBox
-                            .shrink(); // Return an empty SizedBox
+                        return const SizedBox.shrink();
                       }
 
                       return Padding(
