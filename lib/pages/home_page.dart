@@ -18,6 +18,23 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    Stream<QuerySnapshot> appointmentsStream;
+
+    if (user!.uid == "bjou5nLLAkg1Turl6VeKtsJaImj1") {
+      appointmentsStream = FirebaseFirestore.instance
+          .collection('appointments')
+          .orderBy('date')
+          .snapshots();
+    } else {
+      appointmentsStream = FirebaseFirestore.instance
+          .collection('appointments')
+          .where('userID', isEqualTo: user.uid)
+          .orderBy('date')
+          .snapshots();
+    }
+
     return Scaffold(
       backgroundColor: Colors.grey[900],
       appBar: AppBar(
@@ -59,10 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection('appointments')
-            .orderBy('date')
-            .snapshots(),
+        stream: appointmentsStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return const Center(

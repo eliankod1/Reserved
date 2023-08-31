@@ -40,8 +40,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pop();
-                  Navigator.of(context)
-                      .pop(); // Pop both the dialog and the registration page
+                  Navigator.of(context).pop();
                 },
                 child: Text('OK'),
               ),
